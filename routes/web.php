@@ -19,9 +19,9 @@
 
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('mobile', 'MobileController@index');
-    $router->get('mobile/{id}', 'MobileController@show');
-    $router->post('mobile', 'MobileController@store');
-    $router->put('mobile/{id}', 'MobileController@update');
-    $router->delete('mobile/{id}', 'MobileController@destroy');
+    $router->get('users', 'UsersController@index');
+    $router->get('users/{id}', 'UsersController@show');
+    $router->post('users', 'UsersController@store');
+    $router->put('users/{id}', 'UsersController@update');
+    $router->delete('users/{id}', 'UsersController@destroy');
 });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMobliesTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateMobliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mobiles', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('brands', 100)->comment('ยี่ห้อโทรศัพท์');
-            $table->string('models', 100)->comment('รุ่นโทรศัพท์');
-            $table->double('price')->comment('ราคา');
+            $table->string('username');
+            $table->string('name');
+            $table->integer('active');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateMobliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('moblies');
+        Schema::dropIfExists('users');
     }
 }

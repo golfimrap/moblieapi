@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mobile;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
-class MobileController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,11 @@ class MobileController extends Controller
      */
     public function index()
     {
-        $data_mobile = Mobile::select('id', 'brands', 'models', 'price')->get();
+        $data_users = Users::select('id', 'username', 'name', 'active')->get();
 
-        if ($data_mobile) {
+        if ($data_users) {
             return response([
-                'data'      => $data_mobile,
-                'message'   => 'Success'
+                'response'  => $data_users
             ], 200);
         } else {
             return response([
@@ -35,6 +34,7 @@ class MobileController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -45,15 +45,23 @@ class MobileController extends Controller
      */
     public function store(Request $request)
     {
-        $field_mobile = new Mobile;
-        $field_mobile->brands = $request->brands;
-        $field_mobile->models = $request->models;
-        $field_mobile->price  = $request->price;
-        $field_mobile->save();
+        $field_users = new Users;
+        $field_users->username = $request->username;
+        $field_users->name = $request->name;
+        $field_users->active = $request->active;
+        $field_users->save();
 
-        return response([
-            'message'       => 'Create successfully'
-        ], 201);
+        $data_users = Users::select('id', 'username', 'name', 'active')->where('id', $field_users->id)->first();
+
+        if ($data_users) {
+            return response([
+                'response'  => $data_users
+            ], 201);
+        } else {
+            return response([
+                'message'   => 'not found'
+            ], 404);
+        }
     }
 
     /**
@@ -64,19 +72,12 @@ class MobileController extends Controller
      */
     public function show($id)
     {
-        $data_mobile = Mobile::select('id', 'brands', 'models', 'price')
-            ->where('id', $id)
-            ->first();
+        $data_users = Users::select('id', 'username', 'name', 'active')->where('id', $id)->get();
 
-        if ($data_mobile) {
+        if ($data_users) {
             return response([
-                'data'      => $data_mobile,
-                'message'   => 'Success'
+                'response' => $data_users
             ], 200);
-        } else {
-            return response([
-                'message' => 'not found'
-            ], 404);
         }
     }
 
@@ -88,6 +89,7 @@ class MobileController extends Controller
      */
     public function edit($id)
     {
+        //
     }
 
     /**
@@ -99,15 +101,23 @@ class MobileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $field_mobile = Mobile::find($id);
-        $field_mobile->brands = $request->brands;
-        $field_mobile->models = $request->models;
-        $field_mobile->price  = $request->price;
-        $field_mobile->save();
+        $field_users = Users::find($id);
+        $field_users->username = $request->username;
+        $field_users->name = $request->name;
+        $field_users->active = $request->active;
+        $field_users->save();
 
-        return response([
-            'message'       => 'Update successfully'
-        ], 200);
+        $data_users = Users::select('id', 'username', 'name', 'active')->where('id', $id)->first();
+
+        if ($data_users) {
+            return response([
+                'response'  => $data_users
+            ], 200);
+        } else {
+            return response([
+                'message'   => 'not found'
+            ], 404);
+        }
     }
 
     /**
@@ -118,10 +128,10 @@ class MobileController extends Controller
      */
     public function destroy($id)
     {
-        $data_mobile = Mobile::find($id);
+        $data_users = Users::find($id);
 
-        if ($data_mobile) {
-            $destroy = Mobile::destroy($id);
+        if ($data_users) {
+            $destroy = Users::destroy($id);
 
             if ($destroy) {
                 return response(['message' => 'Destroy successfully'], 200);
