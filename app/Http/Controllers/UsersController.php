@@ -16,10 +16,11 @@ class UsersController extends Controller
     {
         $data_users = Users::select('id', 'username', 'name', 'active')->get();
 
+
+
+
         if ($data_users) {
-            return response([
-                'response'  => $data_users
-            ], 200);
+            return response()->json(['response' => $data_users], 200, [], JSON_UNESCAPED_UNICODE);
         } else {
             return response([
                 'message'   => 'not found'
@@ -53,10 +54,11 @@ class UsersController extends Controller
 
         $data_users = Users::select('id', 'username', 'name', 'active')->where('id', $field_users->id)->first();
 
+
+
+
         if ($data_users) {
-            return response([
-                'response'  => $data_users
-            ], 201);
+            return response()->json(['response' => $data_users], 201, [], JSON_UNESCAPED_UNICODE);
         } else {
             return response([
                 'message'   => 'not found'
@@ -75,9 +77,7 @@ class UsersController extends Controller
         $data_users = Users::select('id', 'username', 'name', 'active')->where('id', $id)->get();
 
         if ($data_users) {
-            return response([
-                'response' => $data_users
-            ], 200);
+            return response()->json(['response' => $data_users], 200, [], JSON_UNESCAPED_UNICODE);
         }
     }
 
@@ -110,9 +110,10 @@ class UsersController extends Controller
         $data_users = Users::select('id', 'username', 'name', 'active')->where('id', $id)->first();
 
         if ($data_users) {
-            return response([
-                'response'  => $data_users
-            ], 200);
+            // return response([
+            //     'response'  => $data_users
+            // ], 200);
+            return response()->json(['response' => $data_users], 200, [], JSON_UNESCAPED_UNICODE);
         } else {
             return response([
                 'message'   => 'not found'
