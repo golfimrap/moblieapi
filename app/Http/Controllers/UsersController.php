@@ -74,10 +74,14 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $data_users = Users::select('id', 'username', 'name', 'active')->where('id', $id)->get();
+        $data_users = Users::select('id', 'username', 'name', 'active')->where('id', $id)->first();
 
         if ($data_users) {
             return response()->json(['response' => $data_users], 200, [], JSON_UNESCAPED_UNICODE);
+        } else {
+            return response([
+                'message'   => 'not found'
+            ], 404);
         }
     }
 
@@ -101,7 +105,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $field_users = Users::find($id);
+        $field_users = Users::findOrFail($id);
         $field_users->username = $request->username;
         $field_users->name = $request->name;
         $field_users->active = $request->active;
