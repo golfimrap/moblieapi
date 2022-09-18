@@ -13,6 +13,15 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+// $router->get('/', function () use ($router) {
+//     return $router->app->version();
+// });
+
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('mobile', 'MobileController@index');
+    $router->get('mobile/{id}', 'MobileController@show');
+    $router->post('mobile', 'MobileController@store');
+    $router->put('mobile/{id}', 'MobileController@update');
+    $router->delete('mobile/{id}', 'MobileController@destroy');
 });
