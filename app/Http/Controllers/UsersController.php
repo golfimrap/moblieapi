@@ -14,7 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $data_users = Users::select('id', 'username', 'name', 'active')->get();
+        $data_users = Users::select('id', 'username', 'name', 'active')->paginate(3);
 
 
 
